@@ -1,0 +1,84 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #87CEEB, #fefefe);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card Container */
+.info {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Sun Icon Inside Card */
+.fas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 3rem;
+    color: #FFD43B;
+    margin-bottom: 10px;
+}
+
+/* Location and Date */
+.location {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0 10px;
+}
+
+.date {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #555;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+/* Temperature */
+.temp {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin: 15px 0;
+}
+
+.tempminmax {
+    font-size: 1.2rem;
+    margin-top: 0.3rem;
+    color: #666;
+}
+
+
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .info {
+        max-width: 450px;
+        padding: 30px;
+    }
+
+    .weathercon {
+        font-size: 7rem;
+    }
+
+    .temp {
+        font-size: 3rem;
+    }
+}
