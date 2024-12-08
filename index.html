@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+    integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <title>Weather App</title>
+  <style>
+    /* General Reset */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #87ceeb, #fefefe);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Weather Icon */
+    .weather-icon {
+      font-size: 3rem;
+      color: #ffd43b;
+      margin-bottom: 10px;
+    }
+
+    /* Location and Date */
+    .location {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .date {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #555;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    /* Temperature */
+    .temp {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .tempminmax {
+      font-size: 1rem;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 450px) {
+      main {
+        max-width: 350px;
+        padding: 30px;
+      }
+
+      .weather-icon {
+        font-size: 5rem;
+      }
+
+      .temp {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section>
+      <div class="weather-icon">
+        <i class="fa-regular fa-sun"></i>
+      </div>
+      <h2 class="location">
+        <i class="fa-solid fa-location-dot" style="color: #ffd43b;"></i>
+        {%location%}, {%country%}
+      </h2>
+      <p class="date" id="date">SUN | DEC 08 | 01:20 PM</p>
+    </section>
+    <section>
+      <h1 class="temp">{%temp%} ℃</h1>
+      <p class="tempminmax">MIN {%tempMin%} ℃ | MAX {%tempMax%} ℃</p>
+    </section>
+  </main>
+  <script>
+    const curDate = document.getElementById('date');
+
+    const getCurrentDay = () => {
+      const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
+      const currentDay = new Date().getDay();
+      return weekdays[currentDay];
+    };
+
+    const getCurrentDateAndTime = () => {
+      const months = [
+        'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY',
+        'AUG', 'SEP', 'OCT', 'NOV', 'DEC',
+      ];
+      const now = new Date();
+      const month = months[now.getMonth()];
+      const day = now.getDate().toString().padStart(2, '0');
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const period = hours >= 12 ? 'PM' : 'AM';
+
+      if (hours > 12) hours -= 12;
+      return `${month} ${day} | ${hours}:${minutes} ${period}`;
+    };
+
+    curDate.innerHTML = `${getCurrentDay()} | ${getCurrentDateAndTime()}`;
+  </script>
+</body>
+</html>
