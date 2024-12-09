@@ -9,7 +9,7 @@ A simple weather application built with Node.js, utilizing the OpenWeatherMap AP
 
 ## Features
 
-- Displays current weather conditions for a specific city (default: Pathankot).
+- Displays current weather conditions for a specific city.
 - Shows the current temperature, temperature range (min and max), and weather condition (e.g., Clouds, Clear).
 - Uses icons from Font Awesome to visually represent the weather.
 - Fully responsive design with a smooth layout for both desktop and mobile views.
