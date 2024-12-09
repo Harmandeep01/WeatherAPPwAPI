@@ -97,6 +97,13 @@ You can get your API key by signing up at [OpenWeatherMap](https://openweatherma
 Feel free to fork the repository and submit pull requests if you'd like to contribute. Whether it's a bug fix, feature request, or improvement, contributions are welcome.
 
 ---
+# Weather App Output
+
+### Screenshot
+![London Weather Screenshot](img/london.png)
+--- ---
+![Swiss Weather Screenshot](img/swissie.png)
+---
 
 ## License
 
