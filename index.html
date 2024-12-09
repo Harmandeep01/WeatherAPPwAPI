@@ -1,142 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
-    integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <title>Weather App</title>
-  <style>
-    /* General Reset */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+      integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Weather App</title>
+    <style>
+      /* General Reset */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #87ceeb, #fefefe);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #87ceeb, #fefefe);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
 
-    main {
-      width: 100%;
-      max-width: 400px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      padding: 20px;
-    }
+      /* Search Bar */
+      .search-bar {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+      }
 
-    /* Weather Icon */
-    .weather-icon {
-      font-size: 3rem;
-      color: #ffd43b;
-      margin-bottom: 10px;
-    }
+      .search-bar input {
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+      }
 
-    /* Location and Date */
-    .location {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-    }
+      .search-bar input:focus {
+        border-color: #87ceeb;
+      }
 
-    .date {
-      font-size: 1rem;
-      font-weight: 300;
-      color: #555;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-    }
+      .search-bar button {
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #ffd43b;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
-    /* Temperature */
-    .temp {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #333;
-    }
+      .search-bar button:hover {
+        background-color: #ffcc33;
+      }
 
-    .tempminmax {
-      font-size: 1rem;
-      color: #666;
-      margin-top: 5px;
-    }
-
-    /* Responsive Design */
-    @media (min-width: 450px) {
+      /* Main Weather Card */
       main {
-        max-width: 350px;
-        padding: 30px;
+        margin-top: 80px;
+        width: 100%;
+        max-width: 400px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        padding: 20px;
       }
 
+      /* Weather Icon */
       .weather-icon {
-        font-size: 5rem;
-      }
-
-      .temp {
         font-size: 3rem;
+        color: #ffd43b;
+        margin-bottom: 10px;
       }
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <section>
-      <div class="weather-icon">
-        <i class="fa-regular fa-sun"></i>
-      </div>
-      <h2 class="location">
-        <i class="fa-solid fa-location-dot" style="color: #ffd43b;"></i>
-        {%location%}, {%country%}
-      </h2>
-      <p class="date" id="date">SUN | DEC 08 | 01:20 PM</p>
-    </section>
-    <section>
-      <h1 class="temp">{%temp%} ℃</h1>
-      <p class="tempminmax">MIN {%tempMin%} ℃ | MAX {%tempMax%} ℃</p>
-    </section>
-  </main>
-  <script>
-    const curDate = document.getElementById('date');
 
-    const getCurrentDay = () => {
-      const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
-      const currentDay = new Date().getDay();
-      return weekdays[currentDay];
-    };
+      /* Location and Date */
+      .location {
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
 
-    const getCurrentDateAndTime = () => {
-      const months = [
-        'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY',
-        'AUG', 'SEP', 'OCT', 'NOV', 'DEC',
-      ];
-      const now = new Date();
-      const month = months[now.getMonth()];
-      const day = now.getDate().toString().padStart(2, '0');
-      let hours = now.getHours();
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const period = hours >= 12 ? 'PM' : 'AM';
+      .date {
+        font-size: 1rem;
+        font-weight: 300;
+        color: #555;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
 
-      if (hours > 12) hours -= 12;
-      return `${month} ${day} | ${hours}:${minutes} ${period}`;
-    };
+      /* Temperature */
+      .temp {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+      }
 
-    curDate.innerHTML = `${getCurrentDay()} | ${getCurrentDateAndTime()}`;
-  </script>
-</body>
+      .tempminmax {
+        font-size: 1rem;
+        color: #666;
+        margin-top: 5px;
+      }
+
+      /* Responsive Design */
+      @media (min-width: 768px) {
+        main {
+          max-width: 350px;
+          padding: 30px;
+        }
+
+        .weather-icon {
+          font-size: 5rem;
+        }
+
+        .temp {
+          font-size: 3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Weather Card -->
+    <main>
+      <section>
+        <div class="weather-icon">
+          <i id="icon-name" class="fa-regular fa-sun"></i>
+        </div>
+        <div id="icon-selector">{%weathertype%}</div>
+        <h2 class="location">
+          <i class="fa-solid fa-location-dot" style="color: #ffd43b"></i>
+          {%location%}, {%country%}
+        </h2>
+        <p class="date" id="date">SUN | DEC 08 | 01:20 PM</p>
+      </section>
+      <section>
+        <h1 class="temp">{%temp%} ℃</h1>
+        <p class="tempminmax">MIN {%tempMin%} ℃ | MAX {%tempMax%} ℃</p>
+      </section>
+    </main>
+
+    <script>
+      const curDate = document.getElementById("date");
+      const getCurrentDay = () => {
+        const weekdays = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
+        const currentDay = new Date().getDay();
+        return weekdays[currentDay];
+      };
+
+      const getCurrentDateAndTime = () => {
+        const months = [
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MAY",
+          "JUNE",
+          "JULY",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC",
+        ];
+        const now = new Date();
+        const month = months[now.getMonth()];
+        const day = now.getDate().toString().padStart(2, "0");
+        let hours = now.getHours();
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const period = hours >= 12 ? "PM" : "AM";
+
+        if (hours > 12) hours -= 12;
+        return `${month} ${day} | ${hours}:${minutes} ${period}`;
+      };
+
+      const changeWeatherIcon = () => {
+  const getIconSelector = document.getElementById("icon-selector"); // Use id selector
+  const getIconName = document.getElementById("icon-name");
+
+  if (getIconSelector && getIconSelector.innerHTML.trim() === "Haze") {
+    getIconName.className = "fa-solid fa-smog" // Add the correct FontAwesome classes
+  } else if (getIconSelector && getIconSelector.innerHTML.trim() === "Clouds") {
+    getIconName.className = "fa-solid fa-cloud" // Add the correct FontAwesome classes
+    getIconName.style.color = "gray";
+  } else if (getIconSelector && getIconSelector.innerHTML.trim() === "Snow") {
+    getIconName.className = "fa-solid fa-snowflake" // Add the correct FontAwesome classes
+    getIconName.style.color = "#74C0FC";
+  }
+};
+
+changeWeatherIcon();
+
+
+      curDate.innerHTML = `${getCurrentDay()} | ${getCurrentDateAndTime()}`;
+    </script>
+  </body>
 </html>

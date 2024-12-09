@@ -10,13 +10,14 @@ const replaceVal = (tempVal, orgVal) => {
         .replace("{%tempMin%}", orgVal.main.temp_min)
         .replace("{%tempMax%}", orgVal.main.temp_max)
         .replace("{%location%}", orgVal.name)
-        .replace("{%country%}", orgVal.sys.country);
+        .replace("{%country%}", orgVal.sys.country)
+        .replace("{%weathertype%}", orgVal.weather[0].main);
     return placeholderVal;
 };
 
 const server = http.createServer((req, res) => {
     if (req.url == "/") {
-        requests('https://api.openweathermap.org/data/2.5/weather?q=your_city&appid=your_API_key&units=metric')
+        requests('https://api.openweathermap.org/data/2.5/weather?q=London&appid=c9c7d3b099658123f23b5bdb6d4eeef6&units=metric')
             .on('data', (chunk) => {
                 const parsedData = JSON.parse(chunk);
                 const arrData = [parsedData];
@@ -28,12 +29,6 @@ const server = http.createServer((req, res) => {
                 if (err) console.log('Connection closed due to errors', err);
                 res.end(); // End the response
             });
-    } else if (req.url == "/style.css") {
-        // Serve the CSS file
-        res.writeHead(200, { "Content-Type": "text/css" });
-        const cssFile = fs.readFileSync('style.css', 'utf-8');
-        res.write(cssFile);
-        res.end();
     } else {
         res.writeHead(404, { "Content-Type": "text/html" });
         res.end("<h1>404 Not Found</h1>");
